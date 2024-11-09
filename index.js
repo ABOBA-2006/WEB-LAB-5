@@ -63,14 +63,36 @@ function changeColor(){
 
 
 // 5 task
+let ediitingBlock = NaN;
+
+
+function loadFake(){
+	for(let i=1; i<=6; i++){
+		let block;
+		if(i==4 && window.innerWidth <= 500){
+			block = document.getElementById(i + "-1");
+		}else{
+			block = document.getElementById(i);
+		}
+
+		if(localStorage.getItem(block.id + "_fake")){
+	    	block.innerHTML = localStorage.getItem(block.id + "_fake");
+	    }
+	}
+}
+
+
 function editor(){
 	if(window.innerWidth <= 500){
 		for(let i=1; i<=6; i++){
+			let block;
 			if(i == 4){
 				block = document.getElementById(i + "-1");
 			}else{
 				block = document.getElementById(i);
 			}
+
+			localStorage.setItem(block.id + "_origin", block.innerHTML);
 
 			let longPressTimer;
 			const longPressThreshold = 1000;
@@ -82,6 +104,8 @@ function editor(){
 			        document.getElementById("content").style.filter = 'blur(5px)';
 
 			        document.getElementById("editForm").style.display = "flex";
+
+			        ediitingBlock = block.id;
 			    }, longPressThreshold);
 			});
 
@@ -91,7 +115,9 @@ function editor(){
 		}
 	}else{
 		for(let i=1; i<=6; i++){
-			block = document.getElementById(i);
+			let block = document.getElementById(i);
+
+			localStorage.setItem(block.id + "_origin", block.innerHTML);
 
 			block.addEventListener('dblclick', () => {
 		        document.getElementById("1").style.opacity = 0.5;
@@ -100,10 +126,50 @@ function editor(){
 			    document.getElementById("content").style.filter = 'blur(5px)';
 
 			    document.getElementById("editForm").style.display = "flex";
+
+			    ediitingBlock = block.id;
+			    console.log(ediitingBlock);
 		    });
 		}
 	}
 }
+
+function resetClicked(){
+	document.getElementById("1").style.opacity = 1;
+    document.getElementById("1").style.filter = 'blur(0px)';
+    document.getElementById("content").style.opacity = 1;
+    document.getElementById("content").style.filter = 'blur(0px)';
+
+    document.getElementById("editForm").style.display = "none";
+
+    let blockToReset = document.getElementById(ediitingBlock);
+    let originCode =  localStorage.getItem(ediitingBlock + "_origin");
+    blockToReset.innerHTML = originCode;
+
+    if(ediitingBlock == 2){
+    	changeColor();
+    }
+
+    if(localStorage.getItem(ediitingBlock + "_fake")){
+    	localStorage.removeItem(ediitingBlock + "_fake");
+    }
+}
+
+function submitClicked(){
+	document.getElementById("1").style.opacity = 1;
+    document.getElementById("1").style.filter = 'blur(0px)';
+    document.getElementById("content").style.opacity = 1;
+    document.getElementById("content").style.filter = 'blur(0px)';
+
+    document.getElementById("editForm").style.display = "none";
+
+    let newCode = document.getElementById("textarea").value;
+    let blockToEdit = document.getElementById(ediitingBlock);
+    blockToEdit.innerHTML = newCode;
+
+    localStorage.setItem(ediitingBlock + "_fake", newCode);
+}
+
 
 // TESTING FUNCTIONS___________________________________
 
@@ -111,3 +177,4 @@ function editor(){
 // circleArea(2);
 changeColor();
 editor();
+loadFake();

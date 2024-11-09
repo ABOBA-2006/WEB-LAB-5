@@ -77,13 +77,13 @@
 		<h2>Form to edit blocks</h2>
 
 	    <form>
-	        <label for="textarea">Your Message:</label>
-	        <textarea id="textarea" name="textarea" placeholder="Write new text for block"></textarea>
+	        <label for="textarea">Your new code:</label>
+	        <textarea id="textarea" name="textarea"></textarea>
 	        <br>
 
 	        <div id="editForm__buttons">
-		        <button  id="submit">Submit</button>
-		        <button  id="reset">Reset</button>
+		        <button  type="button" id="submit" onclick="submitClicked()">Submit</button>
+		        <button  type="button" id="reset" onclick="resetClicked()">Reset</button>
 	    	</div>
 	    </form>
 	</div>
