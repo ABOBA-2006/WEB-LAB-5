@@ -78,6 +78,9 @@ function loadFake(){
 		if(localStorage.getItem(block.id + "_fake")){
 	    	block.innerHTML = localStorage.getItem(block.id + "_fake");
 	    }
+	    if(localStorage.getItem(block.id + "_fake-color")){
+	    	block.style.backgroundColor = localStorage.getItem(block.id + "_fake-color");
+	    }
 	}
 }
 
@@ -93,6 +96,7 @@ function editor(){
 			}
 
 			localStorage.setItem(block.id + "_origin", block.innerHTML);
+			localStorage.setItem(block.id + "_origin-color", block.style.backgroundColor);
 
 			let longPressTimer;
 			const longPressThreshold = 1000;
@@ -118,6 +122,7 @@ function editor(){
 			let block = document.getElementById(i);
 
 			localStorage.setItem(block.id + "_origin", block.innerHTML);
+			localStorage.setItem(block.id + "_origin-color", block.style.backgroundColor);
 
 			block.addEventListener('dblclick', () => {
 		        document.getElementById("1").style.opacity = 0.5;
@@ -128,10 +133,17 @@ function editor(){
 			    document.getElementById("editForm").style.display = "flex";
 
 			    ediitingBlock = block.id;
-			    console.log(ediitingBlock);
 		    });
 		}
 	}
+}
+
+function getRandomColor() {
+    const r = Math.floor(Math.random() * 256);
+    const g = Math.floor(Math.random() * 256);
+    const b = Math.floor(Math.random() * 256);
+
+    return `rgb(${r}, ${g}, ${b})`;
 }
 
 function resetClicked(){
@@ -144,7 +156,10 @@ function resetClicked(){
 
     let blockToReset = document.getElementById(ediitingBlock);
     let originCode =  localStorage.getItem(ediitingBlock + "_origin");
+    let originColor = localStorage.getItem(ediitingBlock + "_origin-color");
     blockToReset.innerHTML = originCode;
+    blockToReset.style.backgroundColor = originColor;
+
 
     if(ediitingBlock == 2){
     	changeColor();
@@ -152,6 +167,9 @@ function resetClicked(){
 
     if(localStorage.getItem(ediitingBlock + "_fake")){
     	localStorage.removeItem(ediitingBlock + "_fake");
+    }
+    if(localStorage.getItem(ediitingBlock + "_fake-color")){
+    	localStorage.removeItem(ediitingBlock + "_fake-color");
     }
 }
 
@@ -166,8 +184,10 @@ function submitClicked(){
     let newCode = document.getElementById("textarea").value;
     let blockToEdit = document.getElementById(ediitingBlock);
     blockToEdit.innerHTML = newCode;
+    blockToEdit.style.backgroundColor = getRandomColor();
 
     localStorage.setItem(ediitingBlock + "_fake", newCode);
+    localStorage.setItem(ediitingBlock + "_fake-color", blockToEdit.style.backgroundColor);
 }
 
 
