@@ -23,16 +23,20 @@ function circleArea(R){
 
 
 // 3 task
-window.onload = () => {
-	let valuesArray = document.cookie.split("; ").map(cookie => cookie.split("=")[1]);
-	if(valuesArray[0] == "True"){
-		document.getElementById("numberForm").style.display = "none";
-		document.getElementById("buttonTask3").style.display = "none";
+let valuesArray = document.cookie.split("; ").map(cookie => cookie.split("=")[1]);
+if(valuesArray[0] == "True"){
+	document.getElementById("numberForm").style.display = "none";
+	document.getElementById("buttonTask3").style.display = "none";
+}
 
+window.onload = () => {
+	if(valuesArray[0] == "True"){
 		if (confirm("Delete cookies ?")) {
-			console.log("YES")
+			document.cookie = "cookieEnabled=False;"
 			document.getElementById("numberForm").style.display = "grid";
 			document.getElementById("buttonTask3").style.display = "block";
+		}else{
+			alert("COOKIES ARE HERE ! Reload page or no 1000 from Zelenskyy");
 		}
 	}
 };
@@ -55,8 +59,8 @@ function findMaxCount(){
 
 	alert("Max Count = " + maxCount);
 
-	document.cookie = "cookieEnabled=True; maxcount=${maxCount};";
-	console.log(document.cookie);
+	document.cookie = "cookieEnabled=True;";
+	document.cookie = "username=; expires=Thu, 01 Jan 1970 00:00:00 GMT;";
 }
 
 
