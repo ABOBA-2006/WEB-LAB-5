@@ -23,6 +23,17 @@ function circleArea(R){
 
 
 // 3 task
+let valuesArray = document.cookie.split("; ").map(cookie => cookie.split("=")[1]);
+if(valuesArray[0] == "True"){
+	document.getElementById("numberForm").style.display = "none";
+
+	if (confirm("Delete cookies ?")) {
+		console.log("YES")
+		document.getElementById("numberForm").style.display = "grid";
+	}
+}
+
+
 function findMaxCount(){
 	let numbers = []
 
@@ -39,7 +50,7 @@ function findMaxCount(){
 
 	alert("Max Count = " + maxCount);
 
-	document.cookie = "username=JohnDoe";
+	document.cookie = "cookieEnabled=True; maxcount=${maxCount};";
 	console.log(document.cookie);
 }
 
