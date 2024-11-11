@@ -23,15 +23,20 @@ function circleArea(R){
 
 
 // 3 task
-let valuesArray = document.cookie.split("; ").map(cookie => cookie.split("=")[1]);
-if(valuesArray[0] == "True"){
-	document.getElementById("numberForm").style.display = "none";
+window.onload = () => {
+	let valuesArray = document.cookie.split("; ").map(cookie => cookie.split("=")[1]);
+	if(valuesArray[0] == "True"){
+		document.getElementById("numberForm").style.display = "none";
+		document.getElementById("buttonTask3").style.display = "none";
 
-	if (confirm("Delete cookies ?")) {
-		console.log("YES")
-		document.getElementById("numberForm").style.display = "grid";
+		if (confirm("Delete cookies ?")) {
+			console.log("YES")
+			document.getElementById("numberForm").style.display = "grid";
+			document.getElementById("buttonTask3").style.display = "block";
+		}
 	}
-}
+};
+
 
 
 function findMaxCount(){
