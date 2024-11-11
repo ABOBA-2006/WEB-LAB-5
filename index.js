@@ -38,6 +38,9 @@ function findMaxCount(){
 	let maxCount = numbers.filter((number) => number == maxNumber).length;
 
 	alert("Max Count = " + maxCount);
+
+	document.cookie = "username=JohnDoe";
+	console.log(document.cookie);
 }
 
 
