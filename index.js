@@ -216,8 +216,8 @@ function submitClicked(){
 
 // TESTING FUNCTIONS___________________________________
 
-// swapContent();
-// circleArea(2);
+swapContent();
+circleArea(2);
 changeColor();
 editor();
 loadFake();
